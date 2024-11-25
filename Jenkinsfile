@@ -1,22 +1,21 @@
 pipeline {
-    agent { label 'docker-agent-python' } // Specify the agent label
-
+    agent { label 'docker-agent-python' }
+    
     stages {
         stage('Checkout') {
             steps {
                 echo 'Checking out code...'
-                // Checkout your repository code here
+                checkout scm // Automatically checks out the repository
             }
         }
         
         stage('Build') {
             steps {
                 echo 'Building...'
-                // Create and activate a virtual environment, then install requirements
+                // Create a virtual environment and install packages
                 sh '''
-                python3 -m venv venv  # Create virtual environment
-                source venv/bin/activate  # Activate the virtual environment
-                pip install -r myapp/requirements.txt  # Install dependencies
+                python3 -m venv venv  # Create the virtual environment
+                bash -c "source venv/bin/activate && pip install -r myapp/requirements.txt"
                 '''
             }
         }
@@ -25,9 +24,7 @@ pipeline {
             steps {
                 echo 'Testing...'
                 sh '''
-                source venv/bin/activate  # Activate the virtual environment again
-                cd myapp
-                python3 hello.py  # Run your application
+                bash -c "source venv/bin/activate && cd myapp && python3 hello.py"
                 '''
             }
         }
