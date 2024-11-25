@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Checkout') {
             steps {
@@ -12,25 +12,26 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh 'python3 -m venv venv' // Create virtual environment
+                // Create and activate a virtual environment, then install requirements
                 sh '''
-                source venv/bin/activate
-                pip install -r myapp/requirements.txt
+                python3 -m venv venv  # Create virtual environment
+                source venv/bin/activate  # Activate the virtual environment
+                pip install -r myapp/requirements.txt  # Install dependencies
                 '''
             }
         }
         
         stage('Test') {
             steps {
-                echo 'Testing..'
+                echo 'Testing...'
                 sh '''
-                source venv/bin/activate
+                source venv/bin/activate  # Activate the virtual environment again
                 cd myapp
-                python3 hello.py
+                python3 hello.py  # Run your application
                 '''
             }
         }
-        
+
         stage('Deliver') {
             steps {
                 echo 'Delivering...'
