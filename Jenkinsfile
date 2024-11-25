@@ -13,10 +13,9 @@ pipeline {
                 echo 'Building...'
                 // Create a virtual environment
                 sh 'python3 -m venv venv'
-                // Activate the virtual environment and install requirements
+                // Activate the virtual environment and install requirements using bash
                 sh '''
-                source venv/bin/activate
-                pip install -r myapp/requirements.txt
+                bash -c "source venv/bin/activate && pip install -r myapp/requirements.txt"
                 '''
             }
         }
