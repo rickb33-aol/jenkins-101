@@ -25,6 +25,7 @@ pipeline {
                 echo 'Testing...'
                 sh '''
                 bash -c "source venv/bin/activate && cd myapp && python3 hello.py"
+                bash -c "source venv/bin/activate && cd myapp && python3 hello.py Rick"
                 '''
             }
         }
