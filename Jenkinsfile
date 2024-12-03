@@ -36,5 +36,14 @@ pipeline {
                 // Add delivery steps here
             }
         }
+
+        stage('Keep Alive') {
+            steps {
+                echo 'Keeping the container alive...'
+                sh '''
+                sleep 3600  # Sleep for 1 hour (3600 seconds)
+                '''
+            }
+        }
     }
 }
